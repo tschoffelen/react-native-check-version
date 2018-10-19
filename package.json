@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Check if the user is running the latest version of the app",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/includable/react-native-check-version.git"
@@ -23,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/includable/react-native-check-version/issues"
   },
-  "homepage": "https://github.com/includable/react-native-check-version#readme"
+  "homepage": "https://github.com/includable/react-native-check-version#readme",
+  "peerDependencies": {
+    "react-native": ">=0.40.0",
+    "react-native-device-info": ">=0.20.0"
+  }
 }
