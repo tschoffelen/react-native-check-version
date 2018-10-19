@@ -1,12 +1,20 @@
 const express = require('express')
 const semver = require('semver')
 const axios = require('axios')
+const lru = require('lru-cache')
+
 const app = express()
 const port = process.env.PORT || 80
+const cache = lru({max: 500, maxAge: 43200e3}) // 12 hours cache
 
 const lookupVersion = async (platform, bundleId) => {
+  const key = `${platform}.${bundleId}`
+  let res = cache.get(key)
+  if (res) {
+    return res
+  }
+
   let url
-  let res
   switch (platform) {
     case 'ios':
       url = `http://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}`
@@ -18,29 +26,35 @@ const lookupVersion = async (platform, bundleId) => {
         throw new Error('App for this bundle ID not found.')
       }
       res = res.data.results[0]
-      return {
+
+      res = {
         version: res.version || null,
         released: res.currentVersionReleaseDate || res.releaseDate || null,
         notes: res.releaseNotes || '',
         url: res.trackViewUrl || res.artistViewUrl || res.sellerUrl || null
       }
+
+      cache.set(key, res)
+      return res
     case 'android':
       url = `https://play.google.com/store/apps/details?id=${bundleId}&hl=en`
       res = await axios.get(url)
       res = res.data
 
       let startToken = 'Current Version</div><span class="htlgb"><div><span class="htlgb">'
-
       let indexStart = res.indexOf(startToken)
-      let startTokenLength = startToken.length
-      res = res.substr(indexStart + startTokenLength)
+      res = res.substr(indexStart + startToken.length)
       res = res.substr(0, res.indexOf('<')).trim()
-      return {
+
+      res = {
         version: res || null,
         released: new Date(),
         notes: '',
         url: `https://play.google.com/store/apps/details?id=${bundleId}`
       }
+
+      cache.set(key, res)
+      return res
     default:
       throw new Error('Unsupported platform defined.')
   }
