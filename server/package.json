@@ -1,0 +1,21 @@
+{
+  "name": "react-native-check-version-server",
+  "version": "1.0.0",
+  "description": "Back-end for react-native-check-version.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "PORT=3000 nodemon index.jsd"
+  },
+  "author": "Includable <info@includable.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "semver": "^5.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}

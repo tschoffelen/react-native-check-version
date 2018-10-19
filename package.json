@@ -1,0 +1,27 @@
+{
+  "name": "react-native-check-version",
+  "version": "1.0.0",
+  "description": "Check if the user is running the latest version of the app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/includable/react-native-check-version.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "version",
+    "checker",
+    "ios",
+    "android"
+  ],
+  "author": "Includable <info@includable.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/includable/react-native-check-version/issues"
+  },
+  "homepage": "https://github.com/includable/react-native-check-version#readme"
+}
