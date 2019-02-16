@@ -1,6 +1,6 @@
 # React Native Check Version
 
-[![GitHub release](https://img.shields.io/github/release/includable/react-native-check-version.svg)](https://github.com/includable/react-native-check-version/releases)
+[![NPM](https://img.shields.io/npm/v/react-native-check-version.svg?style=flat)](https://npmjs.com/package/react-native-check-version)
 [![GitHub license](https://img.shields.io/github/license/includable/react-native-check-version.svg)](https://github.com/includable/react-native-check-version/blob/master/LICENSE)
 
 ---
