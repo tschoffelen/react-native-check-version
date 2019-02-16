@@ -64,6 +64,15 @@ app.get('/', (req, res) => res.send('hi!'))
 app.get('/health', (req, res) => res.send('hi!'))
 app.get('/ping', (req, res) => res.send('hi!'))
 
+app.get('/redirect/:platform/:bundleId', async (req, res) => {
+  try {
+    const data = await lookupVersion(req.params.platform, req.params.bundleId)
+    res.redirect(data.url)
+  } catch (e) {
+    res.json({error: e.message || e})
+  }
+})
+
 app.get('/:platform/:bundleId', async (req, res) => {
   try {
     const data = await lookupVersion(req.params.platform, req.params.bundleId)
