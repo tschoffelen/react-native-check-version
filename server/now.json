@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "name": "versionservice",
+  "public": true,
+  "alias": "versionservice.now.sh"
+}

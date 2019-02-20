@@ -105,7 +105,7 @@ app.get('/:platform/:bundleId/:currentVersion', async (req, res) => {
 })
 
 app.get('/recent', async (req, res) => {
-  res.json(lru.keys())
+  res.json(cache.keys())
 })
 
 app.listen(port, () => console.log(`Version service listening on port ${port}`))
