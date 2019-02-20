@@ -38,13 +38,23 @@ const lookupVersion = async (platform, bundleId) => {
       return res
     case 'android':
       url = `https://play.google.com/store/apps/details?id=${bundleId}&hl=en`
-      res = await axios.get(url)
+      try {
+        res = await axios.get(url)
+      } catch(e) {
+        if (e.response && e.response.status && e.response.status === 404) {
+          throw new Error(`App with bundle ID "${bundleId}" not found in Google Play.`)
+        }
+        throw e
+      }
+
       res = res.data
 
-      let startToken = 'Current Version</div><span class="htlgb"><div><span class="htlgb">'
+      let startToken = 'Current Version'
+      let endToken = 'Requires'
       let indexStart = res.indexOf(startToken)
       res = res.substr(indexStart + startToken.length)
-      res = res.substr(0, res.indexOf('<')).trim()
+      let indexEnd = res.indexOf(endToken)
+      res = res.substr(0, indexEnd).replace(/<[^>]+>/g, '').trim()
 
       res = {
         version: res || null,
