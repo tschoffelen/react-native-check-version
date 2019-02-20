@@ -5,7 +5,7 @@ const lru = require('lru-cache')
 
 const app = express()
 const port = process.env.PORT || 80
-const cache = lru({max: 500, maxAge: 43200e3}) // 12 hours cache
+const cache = lru({max: 2400, maxAge: 43200e3}) // 12 hours cache
 
 const lookupVersion = async (platform, bundleId) => {
   const key = `${platform}.${bundleId}`
@@ -102,6 +102,10 @@ app.get('/:platform/:bundleId/:currentVersion', async (req, res) => {
   } catch (e) {
     res.json({error: e.message || e})
   }
+})
+
+app.get('/recent', async (req, res) => {
+  res.json(lru.keys())
 })
 
 app.listen(port, () => console.log(`Version service listening on port ${port}`))
