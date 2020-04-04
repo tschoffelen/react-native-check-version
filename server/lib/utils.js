@@ -1,7 +1,7 @@
 const axios = require('axios');
 const lru = require('lru-cache');
 
-const cache = lru({ max: 2400, maxAge: 43200e3 }); // 12 hours cache
+const cache = lru({ max: 200, maxAge: 43200e3 }); // 12 hours cache
 
 const lookupVersion = async(platform, bundleId) => {
     const key = `${platform}.${bundleId}`;
