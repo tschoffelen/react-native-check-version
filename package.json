@@ -1,6 +1,6 @@
 {
   "name": "react-native-check-version",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Check if the user is running the latest version of the app",
   "main": "index.js",
   "typings": "index.d.ts",
