@@ -1,7 +1,6 @@
 {
   "version": 2,
   "public": true,
-  "alias": "versionservice.now.sh",
   "routes": [
     {
       "src": "/redirect/([^/]+)/([^/]+)",
