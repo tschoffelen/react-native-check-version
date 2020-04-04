@@ -1,6 +1,23 @@
 {
-  "version": 1,
-  "name": "versionservice",
+  "version": 2,
   "public": true,
-  "alias": "versionservice.now.sh"
+  "alias": "versionservice.now.sh",
+  "routes": [
+    {
+      "src": "/redirect/([^/]+)/([^/]+)",
+      "dest": "api/redirect.js?platform=$1&bundleId=$2"
+    },
+    {
+      "src": "/([^/]+)/([^/]+)/([^/]+)",
+      "dest": "api/version.js?platform=$1&bundleId=$2&currentVersion=$3"
+    },
+    {
+      "src": "/([^/]+)/([^/]+)",
+      "dest": "api/get.js?platform=$1&bundleId=$2"
+    },
+    {
+      "src": "/",
+      "dest": "api/index.js"
+    }
+  ]
 }
