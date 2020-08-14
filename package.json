@@ -23,25 +23,28 @@
     "react-native": ">=0.40.0",
     "react-native-device-info": ">=0.20.0"
   },
+  "jest": {
+    "preset": "react-native"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/includable/react-native-check-version.git"
+    "url": "git+https://github.com/flexible-agency/react-native-check-version.git"
   },
   "keywords": [
     "react",
     "native",
     "version",
     "checker",
+    "check",
+    "react-native",
+    "update",
     "ios",
     "android"
   ],
-  "author": "Includable <info@includable.com>",
+  "author": "Flexible Agency <info@flexible.agency>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/includable/react-native-check-version/issues"
+    "url": "https://github.com/flexible-agency/react-native-check-version/issues"
   },
-  "homepage": "https://github.com/includable/react-native-check-version#readme",
-  "jest": {
-    "preset": "react-native"
-  }
+  "homepage": "https://github.com/flexible-agency/react-native-check-version#readme"
 }
