@@ -1,3 +1,6 @@
 example
 backend
+tests
+babel.config.js
+.github
 .idea
