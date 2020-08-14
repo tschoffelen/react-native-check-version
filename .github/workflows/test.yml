@@ -1,7 +1,7 @@
 name: Tests
 on: [push, pull_request]
 jobs:
-  build:
+  Jest:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
