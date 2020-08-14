@@ -1,0 +1,98 @@
+service: check-version
+plugins:
+  - serverless-certificate-creator
+  - serverless-prune-plugin
+  - serverless-offline
+
+# Custom config
+custom:
+  stage: ${opt:stage, 'production'}
+  region: ${opt:region, 'eu-west-1'}
+
+  prune:
+    automatic: true
+    number: 20
+
+  customCertificate:
+    certificateName: check-version.flexible.agency
+    hostedZoneNames: flexible.agency
+    region: us-east-1
+    rewriteRecords: true
+
+# Provider config
+provider:
+  name: aws
+  memorySize: 256
+  timeout: 10
+  profile: schof
+  runtime: nodejs12.x
+  stage: ${self:custom.stage}
+  region: ${self:custom.region}
+
+  environment:
+    NODE_ENV: ${self:custom.stage}
+
+# Functions
+functions:
+  redirect:
+    handler: api/redirect.handler
+    events:
+      - http:
+          path: /redirect/{platform}/{bundleId}
+          method: get
+          cors: true
+  get:
+    handler: api/get.handler
+    events:
+      - http:
+          path: /{platform}/{bundleId}
+          method: get
+          cors: true
+  version:
+    handler: api/version.handler
+    events:
+      - http:
+          path: /{platform}/{bundleId}/{currentVersion}
+          method: get
+          cors: true
+
+# CloudFormation resources
+resources:
+  Resources:
+    CloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - check-version.flexible.agency
+          ViewerCertificate:
+            AcmCertificateArn: ${certificate:${self:custom.customCertificate.certificateName}:CertificateArn}
+            MinimumProtocolVersion: TLSv1.1_2016
+            SslSupportMethod: sni-only
+          DefaultCacheBehavior:
+            TargetOriginId: WebApp
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            ForwardedValues:
+              QueryString: false
+              Cookies:
+                Forward: none
+            AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            DefaultTTL: 3600
+            MinTTL: 3600
+          Enabled: true
+          Origins:
+            - Id: WebApp
+              DomainName:
+                Fn::Join:
+                  - "."
+                  - - Ref: ApiGatewayRestApi
+                    - execute-api.${self:provider.region}.amazonaws.com
+              OriginPath: /${self:provider.stage}
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only

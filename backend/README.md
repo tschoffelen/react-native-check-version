@@ -2,7 +2,6 @@
 
 Simple web service to help the react-native-check-version package.
 
-
 ## Endpoints
 
 ### `GET /:platform/:bundleId`

@@ -1,43 +1,45 @@
-import { Platform, NativeModules } from 'react-native';
-import pkg from './package.json';
+import { Platform, NativeModules } from "react-native";
+import pkg from "./package.json";
 
-const DEFAULT_ENDPOINT = 'https://versionservice.now.sh';
+const DEFAULT_ENDPOINT = "https://check-version.flexible.agency";
+const CACHE = {}; // In-memory temporary cache
 
-export const checkVersion = (options = {}) => {
-    return new Promise((resolve, reject) => {
-        // Get options object
-        const defaultOptions = {
-            endpoint: DEFAULT_ENDPOINT,
-            platform: Platform.OS,
-            bundleId: NativeModules.RNDeviceInfo ? NativeModules.RNDeviceInfo.bundleId : null,
-            currentVersion: NativeModules.RNDeviceInfo ? NativeModules.RNDeviceInfo.appVersion : ''
-        };
-        options = Object.assign({}, defaultOptions, options);
+// noinspection JSUnusedGlobalSymbols
+export const checkVersion = async(options = {}) => {
+  // Get options object
+  const endpoint = options.endpoint || DEFAULT_ENDPOINT;
+  const platform = options.platform || Platform.OS;
+  const bundleId = options.bundleId || (NativeModules.RNDeviceInfo
+    ? NativeModules.RNDeviceInfo.bundleId
+    : null);
+  const currentVersion = options.currentVersion || (NativeModules.RNDeviceInfo
+    ? NativeModules.RNDeviceInfo.appVersion
+    : "");
 
-        // Check if we have retrieved a bundle ID
-        if (!options.bundleId && !('RNDeviceInfo' in NativeModules)) {
-            return console.error(
-                '[react-native-check-version] Missing react-native-device-info dependency, ' +
-                'please manually specify a bundleId in the options object.'
-            );
-        }
+  // Check if we have retrieved a bundle ID
+  if (!bundleId && !("RNDeviceInfo" in NativeModules)) {
+    throw Error(
+      "[react-native-check-version] Missing react-native-device-info dependency, " +
+      "please manually specify a bundleId in the options object."
+    );
+  }
 
-        // Compile into URL
-        const url = `${options.endpoint}/${options.platform}/${options.bundleId}/${options.currentVersion}`;
+  // Compile into URL
+  const url = `${endpoint}/${platform}/${bundleId}/${currentVersion}`;
+  if (CACHE[url]) {
+    return CACHE[url];
+  }
 
-        // Do the actual request
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'X-Source': `${pkg.name}@${pkg.version}`
-            }
-        })
-            .then((response) => {
-                return response.json()
-                    .then((body) => resolve(body))
-                    .catch((err) => reject(err));
-            })
-            .catch((err) => reject(err));
-    });
+  // Do the actual request
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "X-Source": `${pkg.name}@${pkg.version}`,
+    },
+  });
+  const data = await response.json();
+  CACHE[url] = data;
+
+  return data;
 };
