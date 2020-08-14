@@ -38,7 +38,6 @@ if (version.needsUpdate) {
 
 `checkVersion()` accepts an _optional_ options object, which may contain the following keys:
 
-- string `endpoint`: endpoint to use to retrieve version info, defaults to `https://versionservice.now.sh`
 - string `platform`: platform to check for, defaults to React Native's `Platform.OS`
 - string `bundleId`: bundle identifier to check, defaults to the value retrieved using react-native-device-info
 - string `currentVersion`: version to check against, defaults to the currently installed version
