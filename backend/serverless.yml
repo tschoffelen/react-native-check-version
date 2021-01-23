@@ -29,6 +29,9 @@ provider:
   stage: ${self:custom.stage}
   region: ${self:custom.region}
 
+  stackTags:
+    Service: CheckAppVersion
+
   environment:
     NODE_ENV: ${self:custom.stage}
 
