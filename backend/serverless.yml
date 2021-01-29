@@ -14,7 +14,7 @@ custom:
     number: 20
 
   customCertificate:
-    certificateName: check-version.flexible.agency
+    certificateName: '*.flexible.agency'
     hostedZoneNames: flexible.agency
     region: us-east-1
     rewriteRecords: true
