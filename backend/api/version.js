@@ -38,7 +38,10 @@ const versionCompare = (currentVersion, latestVersion) => {
       updateType
     };
   } catch (e) {
-    const needsUpdate = currentVersion !== latestVersion && (latestVersion > currentVersion);
+    let needsUpdate = currentVersion !== latestVersion && (latestVersion > currentVersion);
+    if (!latestVersion.includes('.')) {
+      needsUpdate = false;
+    }
     const updateType = needsUpdate ? "minor" : null;
     return {
       needsUpdate,
