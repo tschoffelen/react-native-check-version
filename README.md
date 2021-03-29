@@ -39,6 +39,7 @@ if (version.needsUpdate) {
 `checkVersion()` accepts an _optional_ options object, which may contain the following keys:
 
 - string `platform`: platform to check for, defaults to React Native's `Platform.OS`
+- string `country`: App Store specific country, defaults to `us`
 - string `bundleId`: bundle identifier to check, defaults to the value retrieved using react-native-device-info
 - string `currentVersion`: version to check against, defaults to the currently installed version
 

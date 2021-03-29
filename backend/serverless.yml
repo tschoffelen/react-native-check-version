@@ -58,6 +58,10 @@ functions:
           path: /{platform}/{bundleId}/{currentVersion}
           method: get
           cors: true
+      - http:
+          path: /{platform}/{country}/{bundleId}/{currentVersion}
+          method: get
+          cors: true
 
 # CloudFormation resources
 resources:
