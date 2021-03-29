@@ -1,8 +1,9 @@
 const lookupVersion = require("../lib/utils");
 
-module.exports.handler = async({ pathParameters: { platform, bundleId } }) => {
+module.exports.handler = async({ pathParameters: { platform, bundleId }, queryStringParameters }) => {
   try {
-    const data = await lookupVersion(platform, bundleId);
+    const country = queryStringParameters && queryStringParameters.country || 'us';
+    const data = await lookupVersion(platform, bundleId, country);
     return {
       statusCode: 200,
       body: JSON.stringify({ platform, bundleId, ...data })

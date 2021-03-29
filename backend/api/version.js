@@ -51,9 +51,10 @@ const versionCompare = (currentVersion, latestVersion) => {
   }
 };
 
-module.exports.handler = async({ pathParameters: { platform, bundleId, currentVersion } }) => {
+module.exports.handler = async({ pathParameters: { platform, bundleId, currentVersion }, queryStringParameters }) => {
   try {
-    const data = await lookupVersion(platform, bundleId);
+    const country = queryStringParameters && queryStringParameters.country || 'us';
+    const data = await lookupVersion(platform, bundleId, country);
     const version = versionCompare(currentVersion, data.version);
     return {
       statusCode: 200,

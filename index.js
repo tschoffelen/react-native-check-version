@@ -2,6 +2,7 @@ import { Platform, NativeModules } from "react-native";
 import pkg from "./package.json";
 
 const DEFAULT_ENDPOINT = "https://check-version.flexible.agency";
+const DEFAULT_COUNTRY = "us";
 const CACHE = {}; // In-memory temporary cache
 
 // noinspection JSUnusedGlobalSymbols
@@ -9,6 +10,7 @@ export const checkVersion = async(options = {}) => {
   // Get options object
   const endpoint = options.endpoint || DEFAULT_ENDPOINT;
   const platform = options.platform || Platform.OS;
+  const country = options.country || DEFAULT_COUNTRY;
   const bundleId = options.bundleId || (NativeModules.RNDeviceInfo
     ? NativeModules.RNDeviceInfo.bundleId
     : null);
@@ -25,7 +27,7 @@ export const checkVersion = async(options = {}) => {
   }
 
   // Compile into URL
-  const url = `${endpoint}/${platform}/${bundleId}/${currentVersion}`;
+  const url = `${endpoint}/${platform}/${bundleId}/${currentVersion}?country=${country}`;
   if (CACHE[url]) {
     return CACHE[url];
   }
