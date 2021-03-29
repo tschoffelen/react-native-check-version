@@ -27,6 +27,8 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
       released: res.currentVersionReleaseDate || res.releaseDate || null,
       notes: res.releaseNotes || "",
       url: res.trackViewUrl || res.artistViewUrl || res.sellerUrl || null,
+      country,
+      lastChecked: (new Date()).toISOString()
     };
 
     cache[key] = res;
@@ -61,6 +63,7 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
       released: new Date(),
       notes: "",
       url: `https://play.google.com/store/apps/details?id=${bundleId}`,
+      lastChecked: (new Date()).toISOString()
     };
 
     cache[key] = res;
