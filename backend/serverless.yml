@@ -83,7 +83,9 @@ resources:
             ViewerProtocolPolicy: redirect-to-https
             Compress: true
             ForwardedValues:
-              QueryString: false
+              QueryString: true
+              QueryStringCacheKeys:
+                - country
               Cookies:
                 Forward: none
             AllowedMethods:
