@@ -51,6 +51,9 @@ functions:
           path: /{platform}/{bundleId}
           method: get
           cors: true
+          request:
+            querystrings:
+              country: false
   version:
     handler: api/version.handler
     events:
@@ -58,10 +61,9 @@ functions:
           path: /{platform}/{bundleId}/{currentVersion}
           method: get
           cors: true
-      - http:
-          path: /{platform}/{country}/{bundleId}/{currentVersion}
-          method: get
-          cors: true
+          request:
+            querystrings:
+              country: false
 
 # CloudFormation resources
 resources:

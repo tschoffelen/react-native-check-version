@@ -30,7 +30,7 @@ Bundle ID should be the Bundle Identifier of your app (e.g. `com.includable.exam
 }
 ```
 
-### `GET /:platform/:country/:bundleId/:currentVersion`
+### `GET /:platform/:bundleId/:currentVersion`
 
 Compare a current `semver` version number to the latest version of the bundle.
 

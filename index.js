@@ -27,7 +27,7 @@ export const checkVersion = async(options = {}) => {
   }
 
   // Compile into URL
-  const url = `${endpoint}/${platform}/${country}/${bundleId}/${currentVersion}`;
+  const url = `${endpoint}/${platform}/${bundleId}/${currentVersion}?country=${country}`;
   if (CACHE[url]) {
     return CACHE[url];
   }
