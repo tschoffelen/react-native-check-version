@@ -67,7 +67,7 @@ This library is developed by Flexible Agency, a creative app development agency.
 
 <div align="center">
 	<b>
-		<a href="https://schof.co/consulting/?utm_source=flexible-agency/react-native-email-link">Get professional support for this package →</a>
+		<a href="https://schof.co/consulting/?utm_source=flexible-agency/react-native-check-version">Get professional support for this package →</a>
 	</b>
 	<br>
 	<sub>
