@@ -59,3 +59,18 @@ if (version.needsUpdate) {
 This library is developed by Flexible Agency, a creative app development agency.
 
 - Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
+
+
+<br /><br />
+
+---
+
+<div align="center">
+	<b>
+		<a href="https://schof.co/consulting/?utm_source=flexible-agency/react-native-email-link">Get professional support for this package →</a>
+	</b>
+	<br>
+	<sub>
+		Custom consulting sessions availabe for implementation support or feature development.
+	</sub>
+</div>
