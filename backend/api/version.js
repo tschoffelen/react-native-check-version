@@ -1,12 +1,21 @@
 const semver = require("semver");
 const lookupVersion = require("../lib/utils");
 
+const parseVersion = (version) => {
+  return semver.parse(semver.coerce(version), true);
+}
+
 const diffLoose = (version1, version2) => {
-  if (semver.eq(version1, version2, true)) {
+  if (version1 === version2) {
     return null;
   }
-  const v1 = semver.parse(version1, true);
-  const v2 = semver.parse(version2, true);
+
+  const v1 = parseVersion(version1);
+  const v2 = parseVersion(version2);
+  if (semver.lt(v2, v1) || semver.eq(v1, v2, true)) {
+    return null;
+  }
+
   let prefix = "";
   let defaultResult = null;
   if (v1.prerelease.length || v2.prerelease.length) {
@@ -31,15 +40,15 @@ const versionCompare = (currentVersion, latestVersion) => {
   }
 
   try {
-    const needsUpdate = semver.lt(currentVersion, latestVersion, true);
-    const updateType = needsUpdate ? diffLoose(currentVersion, latestVersion) : null;
+    const updateType = diffLoose(currentVersion, latestVersion);
     return {
-      needsUpdate,
+      needsUpdate: !!updateType,
       updateType
     };
   } catch (e) {
     let needsUpdate = currentVersion !== latestVersion && (latestVersion > currentVersion);
-    if (!latestVersion.includes('.')) {
+    if (!latestVersion.includes('.') || latestVersion.split('.').length < 3) {
+      // Not a valid semver, so don't ever ask to update
       needsUpdate = false;
     }
     const updateType = needsUpdate ? "minor" : null;
@@ -67,3 +76,5 @@ module.exports.handler = async({ pathParameters: { platform, bundleId, currentVe
     };
   }
 };
+
+module.exports.versionCompare = versionCompare;
