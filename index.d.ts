@@ -18,6 +18,8 @@ export interface CheckVersionResponse {
   updateType?: CheckVersionUpdateType;
   platform?: PlatformOSType;
   bundleId?: string;
+  lastChecked?: string;
+  country?: string;
 }
 
 declare const checkVersion: (
