@@ -1,6 +1,19 @@
 const axios = require("axios");
+const dateFns = require('date-fns');
 
 const cache = {}
+
+const getTokenValue = (startToken, endToken, tokenSearchData) => {
+  const indexStart = tokenSearchData.indexOf(startToken);
+  let value = tokenSearchData.substr(indexStart + startToken.length);
+  const indexEnd = value.indexOf(endToken);
+  value = value
+    .substr(0, indexEnd)
+    .replace(/<[^>]+>/g, "")
+    .trim();
+
+  return value;
+}
 
 const lookupVersion = async(platform, bundleId, country = 'us') => {
   const key = `${platform}.${bundleId}`;
@@ -46,21 +59,18 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
       throw e;
     }
 
-    res = res.data;
+    const resData = res.data;
 
-    let startToken = "Current Version";
-    let endToken = "Requires";
-    let indexStart = res.indexOf(startToken);
-    res = res.substr(indexStart + startToken.length);
-    let indexEnd = res.indexOf(endToken);
-    res = res
-      .substr(0, indexEnd)
-      .replace(/<[^>]+>/g, "")
-      .trim();
+    // Version
+    const version = getTokenValue("Current Version", "Requires", resData)
+
+    // Release Date
+    const released = dateFns.parse(getTokenValue("Updated", "Size", resData), 'LLLL d, yyyy', new Date());
+
 
     res = {
-      version: res || null,
-      released: new Date(),
+      version: version || null,
+      released: (released).toISOString(),
       notes: "",
       url: `https://play.google.com/store/apps/details?id=${bundleId}`,
       lastChecked: (new Date()).toISOString()
