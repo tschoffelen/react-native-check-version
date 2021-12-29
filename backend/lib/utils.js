@@ -1,5 +1,6 @@
 const axios = require("axios");
-const dateFns = require('date-fns');
+const dateFns = require("date-fns");
+const { convert } = require("html-to-text");
 
 const cache = {}
 
@@ -64,14 +65,19 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
     // Version
     const version = getTokenValue("Current Version", "Requires", resData)
 
+    // Release Notes
+    const notes = (getTokenValue("What&#39;s New", "Additional Information", resData)).replace('Read moreCollapse', '');
+
     // Release Date
     const released = dateFns.parse(getTokenValue("Updated", "Size", resData), 'LLLL d, yyyy', new Date());
 
 
     res = {
       version: version || null,
-      released: (released).toISOString(),
-      notes: "",
+      releasedAt: (released).toISOString() || (new Date()).toISOString(),
+      notes: convert(notes, {
+        wordwrap: false
+      }) || "",
       url: `https://play.google.com/store/apps/details?id=${bundleId}`,
       lastChecked: (new Date()).toISOString()
     };
