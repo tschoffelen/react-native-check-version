@@ -26,7 +26,7 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
   let url;
   switch (platform) {
   case "ios":
-    url = `http://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}`;
+    url = `https://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}`;
     res = await axios.get(url);
     if (!res.data || !("results" in res.data)) {
       throw new Error("Unknown error connecting to iTunes.");
