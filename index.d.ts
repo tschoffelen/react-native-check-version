@@ -7,6 +7,7 @@ export interface CheckVersionOptions {
   platform?: PlatformOSType;
   bundleId?: string;
   currentVersion?: string;
+  country?: string;
 }
 
 export interface CheckVersionResponse {
