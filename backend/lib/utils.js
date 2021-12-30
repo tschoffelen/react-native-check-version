@@ -1,6 +1,20 @@
 const axios = require("axios");
+const dateFns = require("date-fns");
+const { convert } = require("html-to-text");
 
 const cache = {}
+
+const getTokenValue = (startToken, endToken, tokenSearchData) => {
+  const indexStart = tokenSearchData.indexOf(startToken);
+  let value = tokenSearchData.substr(indexStart + startToken.length);
+  const indexEnd = value.indexOf(endToken);
+  value = value
+    .substr(0, indexEnd)
+    .replace(/<[^>]+>/g, "")
+    .trim();
+
+  return value;
+}
 
 const lookupVersion = async(platform, bundleId, country = 'us') => {
   const key = `${platform}.${bundleId}`;
@@ -13,7 +27,7 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
   switch (platform) {
   case "ios":
     // Adds a random number to the end of the URL to prevent caching
-    url = `http://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}&_=${new Date().valueOf()}`;
+    url = `https://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}&_=${new Date().valueOf()}`;
     res = await axios.get(url);
     if (!res.data || !("results" in res.data)) {
       throw new Error("Unknown error connecting to iTunes.");
@@ -47,22 +61,24 @@ const lookupVersion = async(platform, bundleId, country = 'us') => {
       throw e;
     }
 
-    res = res.data;
+    const resData = res.data;
 
-    let startToken = "Current Version";
-    let endToken = "Requires";
-    let indexStart = res.indexOf(startToken);
-    res = res.substr(indexStart + startToken.length);
-    let indexEnd = res.indexOf(endToken);
-    res = res
-      .substr(0, indexEnd)
-      .replace(/<[^>]+>/g, "")
-      .trim();
+    // Version
+    const version = getTokenValue("Current Version", "Requires", resData)
+
+    // Release Notes
+    const notes = (getTokenValue("What&#39;s New", "Additional Information", resData)).replace('Read moreCollapse', '');
+
+    // Release Date
+    const released = dateFns.parse(getTokenValue("Updated", "Size", resData), 'LLLL d, yyyy', new Date());
+
 
     res = {
-      version: res || null,
-      released: new Date(),
-      notes: "",
+      version: version || null,
+      releasedAt: (released).toISOString() || (new Date()).toISOString(),
+      notes: convert(notes, {
+        wordwrap: false
+      }) || "",
       url: `https://play.google.com/store/apps/details?id=${bundleId}`,
       lastChecked: (new Date()).toISOString()
     };
