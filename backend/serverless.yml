@@ -92,8 +92,9 @@ resources:
               - GET
               - HEAD
               - OPTIONS
-            DefaultTTL: 3600
-            MinTTL: 3600
+            DefaultTTL: 10800
+            MinTTL: 10800
+            MaxTTL: 86400
           Enabled: true
           Origins:
             - Id: WebApp
