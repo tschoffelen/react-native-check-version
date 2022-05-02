@@ -74,6 +74,7 @@ resources:
         DistributionConfig:
           Aliases:
             - check-version.flexible.agency
+          PriceClass: PriceClass_100
           ViewerCertificate:
             AcmCertificateArn: ${certificate:${self:custom.customCertificate.certificateName}:CertificateArn}
             MinimumProtocolVersion: TLSv1.1_2016
