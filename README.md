@@ -52,14 +52,22 @@ if (version.needsUpdate) {
 - string `url`: download URL for the latest version
 - string `notes`: (iOS only) release notes of latest version
 - boolean `needsUpdate`: whether the latest version number is higher than the currently installed one
-- string `updateType`: `major`, `minor` or `patch`, based on how big the difference is between the currently installed version and the available version
+- string `updateType`: `major`, `minor` or `patch`, based on how big the difference is between the currently installed
+  version and the available version
+
+## Changelog
+
+- `v1.0.13`: Added a try-catch within the main `checkVersion` function to prevent error responses from the HTTP requests
+  to throw errors.
+- `v1.0.12`: Replaced the [custom backend](https://github.com/flexible-agency/react-native-check-version/issues/30) used
+  previously by doing calls directly within the app. Please note Google Play has updated their web pages to make it
+  almost impossible to get current version numbers, rendering part of the Android functionality less reliable.
 
 ## Authors
 
 This library is developed by Flexible Agency, a creative app development agency.
 
 - Thomas Schoffelen, [@tschoffelen](https://twitter.com/tschoffelen)
-
 
 <br /><br />
 
