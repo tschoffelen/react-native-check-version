@@ -71,6 +71,6 @@ This library is developed by Flexible Agency, a creative app development agency.
 	</b>
 	<br>
 	<sub>
-		Custom consulting sessions availabe for implementation support or feature development.
+		Custom consulting sessions available for implementation support or feature development.
 	</sub>
 </div>
