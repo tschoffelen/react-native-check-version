@@ -1,33 +1,27 @@
-import fetch from "node-fetch";
-
-import { checkVersion } from "../index";
-
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch;
-}
+import { checkVersion } from '../index';
 
 describe('checkVersion', () => {
-  test('can get version for valid bundle ID', async() => {
-    const data = await checkVersion({
-      platform: 'android',
-      bundleId: 'com.streetartcities.map',
-      currentVersion: '1.0.0'
-    });
+	test('can get version for valid bundle ID', async() => {
+		const data = await checkVersion({
+			platform: 'android',
+			bundleId: 'com.streetartcities.map',
+			currentVersion: '1.0.0'
+		});
 
-    expect(data.platform).toEqual('android');
-    expect(data.bundleId).toEqual('com.streetartcities.map');
-    expect(data.needsUpdate).toEqual(true);
-  });
+		expect(data.platform).toEqual('android');
+		expect(data.bundleId).toEqual('com.streetartcities.map');
+		expect(data.needsUpdate).toEqual(true);
+	});
 
-  test('will not update when version is "Varies with device"', async() => {
-    const data = await checkVersion({
-      platform: 'android',
-      bundleId: 'com.facebook.katana',
-      currentVersion: '1.0.0'
-    });
+	test('can get version for valid bundle ID', async() => {
+		const data = await checkVersion({
+			platform: 'ios',
+			bundleId: 'nl.hoyapp.mobile',
+			currentVersion: '1.0.0'
+		});
 
-    expect(data.platform).toEqual('android');
-    expect(data.bundleId).toEqual('com.facebook.katana');
-    expect(data.needsUpdate).toEqual(false);
-  });
+		expect(data.platform).toEqual('ios');
+		expect(data.bundleId).toEqual('nl.hoyapp.mobile');
+		expect(data.needsUpdate).toEqual(true);
+	});
 });
