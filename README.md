@@ -57,11 +57,12 @@ if (version.needsUpdate) {
 
 ## Changelog
 
+- `v1.0.14`: Updated Android logic to use new Google Play endpoints.
 - `v1.0.13`: Added a try-catch within the main `checkVersion` function to prevent error responses from the HTTP requests
   to throw errors.
 - `v1.0.12`: Replaced the [custom backend](https://github.com/flexible-agency/react-native-check-version/issues/30) used
-  previously by doing calls directly within the app. Please note Google Play has updated their web pages to make it
-  almost impossible to get current version numbers, rendering part of the Android functionality less reliable.
+  previously by doing calls directly within the app. Please note Google Play has updated their web pages, making older
+  versions not functional.
 
 ## Authors
 
