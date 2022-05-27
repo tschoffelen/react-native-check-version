@@ -24,7 +24,22 @@ export const checkVersion = async(options = {}) => {
 		);
 	}
 
-	const data = await lookupVersion(platform, bundleId, country);
-	const version = versionCompare(currentVersion, data.version);
-	return { platform, bundleId, ...data, ...version };
+	try {
+		const data = await lookupVersion(platform, bundleId, country);
+		const version = versionCompare(currentVersion, data.version);
+		return { platform, bundleId, ...data, ...version };
+	} catch (e) {
+		// On error - return default object
+		return {
+			platform,
+			bundleId,
+			version: null,
+			needsUpdate: false,
+			notes: '',
+			url: null,
+			lastChecked: (new Date()).toISOString(),
+			country,
+			error: e
+		};
+	}
 };
