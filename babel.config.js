@@ -2,21 +2,21 @@ module.exports = function(api) {
   api.cache(true);
   const presets = [
     [
-      '@babel/preset-env',
+      "@babel/preset-env",
       {
-        modules: 'auto',
+        modules: "auto",
         targets: {
-          browsers: ['defaults']
+          browsers: ["defaults"]
         },
-        useBuiltIns: 'entry',
+        useBuiltIns: "entry",
         corejs: 2
       }
     ],
-    '@babel/preset-flow'
+    "@babel/preset-flow"
   ];
 
   const plugins = [
-    '@babel/plugin-proposal-class-properties'
+    "@babel/plugin-proposal-class-properties"
   ];
 
   return {
