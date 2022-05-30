@@ -4,14 +4,10 @@ import { getAndroidVersion } from "./providers/android";
 export const lookupVersion = async(platform, bundleId, country = "us") => {
   switch (platform) {
   case "ios":
-    res = await getIosVersion(bundleId, country);
-    break;
+    return getIosVersion(bundleId, country);
   case "android":
-    res = await getAndroidVersion(bundleId, country);
-    break;
+    return getAndroidVersion(bundleId, country);
   default:
     throw new Error("Unsupported platform defined.");
   }
-
-  return res;
 };
