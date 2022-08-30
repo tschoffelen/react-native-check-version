@@ -10,7 +10,6 @@ export const getAndroidVersion = async(bundleId, country) => {
       }
     });
   } catch (e) {
-    console.log(e.response);
     if (e.response && e.response.status && e.response.status === 404) {
       throw new Error(
         `App with bundle ID "${bundleId}" not found in Google Play.`
