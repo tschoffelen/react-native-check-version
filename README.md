@@ -57,6 +57,7 @@ if (version.needsUpdate) {
 
 ## Changelog
 
+- `v1.0.18`: Update headers for Google Play HTTP request.
 - `v1.0.14`: Updated Android logic to use new Google Play endpoints.
 - `v1.0.13`: Added a try-catch within the main `checkVersion` function to prevent error responses from the HTTP requests
   to throw errors.
