@@ -19,7 +19,16 @@ export const getAndroidVersion = async(bundleId, country) => {
     throw e;
   }
 
-  const version = res.data.match(/['"]((\d+\.)+\d+)['"](?<!['"]((0+\.)+0+)['"])/)[0];
+  let getVersionFromHTML = (str) => {
+    const matches = str.match(/['"](\d+\.){2,}\d+['"]/gmi);
+    for (let match of matches) {
+      if (!/^['"](0+\.?)+['"]$/.test(match)) {
+        return match.replace(/['"]/g, '');
+      }
+    }
+    return null;
+  };
+  const version = getVersionFromHTML(res.data);
 
   return {
     version: version || null,
