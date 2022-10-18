@@ -3,14 +3,17 @@ export const getIosVersion = async (bundleId, country) => {
   const url = `https://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}&_=${new Date().valueOf()}`;
 
   let res = await fetch(url);
-  if (!res.data || !("results" in res.data)) {
+
+  const data = await res.json();
+
+  if (!data || !("results" in data)) {
     throw new Error("Unknown error connecting to iTunes.");
   }
-  if (!res.data.results.length) {
+  if (!data.results.length) {
     throw new Error("App for this bundle ID not found.");
   }
 
-  res = res.data.results[0];
+  res = data.results[0];
 
   return {
     version: res.version || null,
