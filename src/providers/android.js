@@ -1,4 +1,4 @@
-export const getAndroidVersion = async (bundleId, country) => {
+export const getAndroidVersion = async(bundleId, country) => {
   const url = `https://play.google.com/store/apps/details?id=${bundleId}&hl=${country}`;
   let res;
   try {

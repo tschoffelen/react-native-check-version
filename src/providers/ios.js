@@ -1,4 +1,4 @@
-export const getIosVersion = async (bundleId, country) => {
+export const getIosVersion = async(bundleId, country) => {
   // Adds a random number to the end of the URL to prevent caching
   const url = `https://itunes.apple.com/lookup?lang=en&bundleId=${bundleId}&country=${country}&_=${new Date().valueOf()}`;
 
