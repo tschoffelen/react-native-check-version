@@ -9,7 +9,7 @@
     "lint": "prettier --write ."
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "semver": "^7.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",

@@ -5,7 +5,7 @@ import { versionCompare } from "./src/versions";
 
 const DEFAULT_COUNTRY = "us";
 
-export const checkVersion = async(options = {}) => {
+export const checkVersion = async (options = {}) => {
   // Get options object
   const platform = options.platform || Platform.OS;
   const country = options.country || DEFAULT_COUNTRY;
