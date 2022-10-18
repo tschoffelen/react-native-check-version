@@ -17,7 +17,8 @@ export const getAndroidVersion = async (bundleId, country) => {
     throw e;
   }
 
-  const version = res.data.match(/\[\[\[['"]((\d+\.)+\d+)['"]\]\],/)[1];
+  const text = res.text();
+  const version = text.match(/\[\[\[['"]((\d+\.)+\d+)['"]\]\],/)[1];
 
   return {
     version: version || null,
