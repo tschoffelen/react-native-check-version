@@ -1,4 +1,4 @@
-export const getAndroidVersion = async(bundleId, country) => {
+export const getAndroidVersion = async (bundleId, country) => {
   const url = `https://play.google.com/store/apps/details?id=${bundleId}&hl=${country}`;
   let res;
   try {
@@ -9,12 +9,17 @@ export const getAndroidVersion = async(bundleId, country) => {
       }
     });
   } catch (e) {
-    if (e.response && e.response.status && e.response.status === 404) {
+    throw e;
+  }
+
+  if (!res.ok) {
+
+    if (res.status === 404) {
       throw new Error(
         `App with bundle ID "${bundleId}" not found in Google Play.`
       );
     }
-    throw e;
+    throw res.statusText
   }
 
   const text = await res.text();
