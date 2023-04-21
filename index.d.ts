@@ -21,6 +21,7 @@ export interface CheckVersionResponse {
   bundleId?: string;
   lastChecked?: string;
   country?: string;
+  error?: Error;
 }
 
 declare const checkVersion: (
