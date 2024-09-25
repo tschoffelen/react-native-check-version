@@ -6,7 +6,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "jest",
-    "lint": "prettier --write ."
+    "lint": "prettier --write .",
+    "release": "semantic-release"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
@@ -17,7 +18,8 @@
     "jest-environment-node": "^29.5.0",
     "node-fetch": "^2.6.0",
     "prettier": "^2.0.5",
-    "react-native": "^0.70.0"
+    "react-native": "^0.70.0",
+    "semantic-release": "^24.1.1"
   },
   "peerDependencies": {
     "react-native": ">=0.40.0",
