@@ -50,7 +50,7 @@ if (version.needsUpdate) {
 - string `version`: latest version number of the app
 - string `released`: (iOS only) ISO 8601 release date of that version
 - string `url`: download URL for the latest version
-- string `notes`: (iOS only) release notes of latest version
+- string `notes`: release notes of latest version
 - boolean `needsUpdate`: whether the latest version number is higher than the currently installed one
 - string `updateType`: `major`, `minor` or `patch`, based on how big the difference is between the currently installed
   version and the available version
