@@ -25,10 +25,11 @@ export const getAndroidVersion = async (bundleId, country) => {
   const text = await res.text();
   const version = text.match(/\[\[\[['"]((\d+\.)+\d+)['"]\]\],/)[1];
   const notes = text.match(/<div itemprop="description">(.*?)<\/div>/)?.[1];
+  const releasedAt = text.match(/<div class="xg1aie">(.*?)<\/div>/)?.[1];
 
   return {
     version: version || null,
-    releasedAt: (new Date()).toISOString(),
+    releasedAt: releasedAt || "",
     notes: notes || "",
     url: `https://play.google.com/store/apps/details?id=${bundleId}&hl=${country}`,
     lastChecked: (new Date()).toISOString()
